@@ -1,15 +1,15 @@
-class Studente:
-    def __init__(self, nome, cognome, data, matricola, codicefiscale , email, facolta, password):
-        self.nome = nome
-        self.cognome = cognome
-        self.data = data
+from Persona import Persona
+
+class Studente(Persona):
+    def __init__(self, nome, cognome, data_nascita, codice_fiscale, email, matricola, facolta, password):
+        super().__init__(nome, cognome, data_nascita, codice_fiscale, email)
         self.matricola = matricola
-        self.codicefiscale = codicefiscale
-        self.email = email
         self.facolta = facolta
         self.password = password
+
     def __str__(self):
-        return f"Studente: {self.nome} {self.cognome}, data di nascita: {self.data}, matricola: {self.matricola}, codice fiscale: {self.codicefiscale}, email: {self.email}, facoltà: {self.facolta}, password: {self.password}"
+        return (f"Studente: {self.nome} {self.cognome}, Facoltà: {self.facolta}, "
+                f"Matricola: {self.matricola}, Email: {self.email}")
 
     def saluta(self):
         print(f"Benvenuto  {self.nome} {self.cognome}!")
