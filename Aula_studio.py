@@ -1,4 +1,4 @@
-class Aula_studio:
+class Aulastudio:
     def __init__(self, nome, id, edificio, numero_tavoli, numero_postazioni):
         self.nome = nome
         self.id = id
