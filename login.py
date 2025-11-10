@@ -2,35 +2,39 @@ import tkinter as tk
 from tkinter import messagebox
 
 # Funzione di login
-def login():
-    username = entry_username.get()
-    password = entry_password.get()
+def login(utenti):
+    # Creiamo la finestra di login
+    root = tk.Tk()
+    root.title("Login")
+    root.geometry("300x230")
 
-    # Simuliamo un controllo di login (ad esempio, confrontando con un utente hardcoded)
-    if username == "admin" and password == "password123":
-        messagebox.showinfo("Login", "Login riuscito!")
-    else:
-        messagebox.showerror("Login", "Username o password errati!")
+    # Etichette e campi di input
+    label_email = tk.Label(root, text="Email:")
+    label_email.pack(pady=10)
+    entry_email = tk.Entry(root)
+    entry_email.pack(pady=5)
 
-root = tk.Tk()
-root.title("Login")
+    label_password = tk.Label(root, text="Password:")
+    label_password.pack(pady=10)
+    entry_password = tk.Entry(root, show="*")
+    entry_password.pack(pady=5)
 
-root.geometry("300x250")
+    # Funzione di verifica login
+    def verifica_login():
+        email = entry_email.get()
+        password = entry_password.get()
 
-label_username = tk.Label(root, text="Nome utente:")
-label_username.pack(pady=10)
+        for utente in utenti:
+            if utente.email == email and utente.password == password:
+                messagebox.showinfo("Login", f"Benvenuto {utente.nome} {utente.cognome}!")
+                root.destroy()  # Chiudi la finestra di login
+                return
 
-entry_username = tk.Entry(root)
-entry_username.pack(pady=5)
+        messagebox.showerror("Login", "Email o password errati!")
 
-label_password = tk.Label(root, text="Password:")
-label_password.pack(pady=10)
+    # Bottone di login
+    button_login = tk.Button(root, text="Login", command=verifica_login)
+    button_login.pack(pady=20)
 
-entry_password = tk.Entry(root, show="*")  # show="*" nasconde la password
-entry_password.pack(pady=5)
-
-
-button_login = tk.Button(root, text="Login", command=login)
-button_login.pack(pady=20)
-
-root.mainloop()
+    # Avvia l'interfaccia grafica
+    root.mainloop()

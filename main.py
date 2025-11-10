@@ -1,6 +1,7 @@
 #
 from Amministratore import Amministratore
 from Studente import Studente
+from login import login
 
 
 def main():
@@ -18,6 +19,16 @@ def main():
         password="password123"
     )
 
+    studente2 = Studente(
+        nome="Marco",
+        cognome="Rossi",
+        data_nascita="2001-09-10",
+        codice_fiscale="RSSMRC01P10H501K",
+        email="marco.rossi@email.com",
+        matricola="654321",
+        facolta="Informatica",
+        password="securepass456"
+    )
 
     admin1 = Amministratore(
         nome="Luca",
@@ -31,12 +42,15 @@ def main():
 
     # Aggiungiamo gli utenti alla lista
     utenti.append(studente1)
-    utenti.append(admin1)
+    utenti.append(studente2)
+ #   utenti.append(admin1)
 
     # Mostriamo i dati di tutti gli utenti
     print("Elenco utenti:")
     for utente in utenti:
         print(utente)
+
+    login(utenti)
 
 if __name__ == "__main__":
     main()
