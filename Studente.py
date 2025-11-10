@@ -13,5 +13,3 @@ class Studente:
 
     def saluta(self):
         print(f"Benvenuto  {self.nome} {self.cognome}!")
-
-
