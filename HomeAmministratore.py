@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
+
+from Studente import Studente
 from profilo import Profilo  # Assicurati che questa classe sia definita correttamente per visualizzare il profilo
 
 
@@ -43,9 +45,10 @@ class HomeAmministratore:
 
         # Aggiungi un bottone per ogni utente nella lista
         for utente in self.utenti:
-            button_utente = tk.Button(lista_utenti_window, text=f"{utente.nome} {utente.cognome}",
+            if isinstance(utente, Studente):
+                button_utente = tk.Button(lista_utenti_window, text=f"{utente.nome} {utente.cognome}",
                                       command=lambda u=utente: self.visualizza_profilo(u))
-            button_utente.pack(pady=5)
+                button_utente.pack(pady=5)
 
     def visualizza_profilo(self, utente):
         # Quando un amministratore clicca su un utente, viene mostrato il suo profilo
