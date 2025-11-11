@@ -79,3 +79,4 @@ def registrazione(utenti):
     button_registra.pack(pady=20)
 
     reg_window.mainloop()
+
