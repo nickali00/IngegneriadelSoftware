@@ -1,10 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox
+from profilo import Profilo  # Assicurati che questa classe sia definita correttamente per visualizzare il profilo
 
 
 class HomeAmministratore:
-    def __init__(self, utente):
+    def __init__(self, utente, utenti):
         self.utente = utente
+        self.utenti = utenti  # Lista di utenti (studente, amministratore, ecc.)
+
+        # Finestra principale
         self.home_window = tk.Tk()
         self.home_window.title(f"Home Amministratore: {self.utente.nome}")
         self.home_window.geometry("400x400")
@@ -14,7 +18,7 @@ class HomeAmministratore:
         label_benvenuto.pack(pady=20)
 
         # Bottone per gestire gli utenti
-        button_gestione_utenti = tk.Button(self.home_window, text="Gestisci Utenti", command=self.gestione_utenti)
+        button_gestione_utenti = tk.Button(self.home_window, text="Gestisci Utenti", command=self.mostra_lista_utenti)
         button_gestione_utenti.pack(pady=10)
 
         # Bottone per visualizzare report
@@ -27,12 +31,29 @@ class HomeAmministratore:
 
         self.home_window.mainloop()
 
-    def gestione_utenti(self):
-        # Logica per gestire gli utenti
-        messagebox.showinfo("Gestione Utenti", "Funzione per aggiungere, modificare o rimuovere utenti.")
+    def mostra_lista_utenti(self):
+        # Finestra per visualizzare la lista degli utenti
+        lista_utenti_window = tk.Toplevel(self.home_window)
+        lista_utenti_window.title("Lista Utenti")
+        lista_utenti_window.geometry("300x300")
+
+        # Etichetta per la lista
+        label_lista_utenti = tk.Label(lista_utenti_window, text="Seleziona un utente:", font=("Arial", 14))
+        label_lista_utenti.pack(pady=10)
+
+        # Aggiungi un bottone per ogni utente nella lista
+        for utente in self.utenti:
+            button_utente = tk.Button(lista_utenti_window, text=f"{utente.nome} {utente.cognome}",
+                                      command=lambda u=utente: self.visualizza_profilo(u))
+            button_utente.pack(pady=5)
+
+    def visualizza_profilo(self, utente):
+        # Quando un amministratore clicca su un utente, viene mostrato il suo profilo
+        profilo = Profilo(utente)
+        profilo.mostra_profilo()
 
     def visualizza_report(self):
-        # Logica per visualizzare report
+        # Aggiungi logica per visualizzare il report
         messagebox.showinfo("Report", "Report delle attività recenti nel sistema.")
 
     def logout(self):

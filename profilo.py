@@ -2,17 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 
 
-# Classe Utente aggiunta per rendere il codice eseguibile
-class Utente:
-    def __init__(self, nome, cognome, data_nascita, codice_fiscale, email, matricola, facolta):
-        self.nome = nome
-        self.cognome = cognome
-        self.data_nascita = data_nascita
-        self.codice_fiscale = codice_fiscale
-        self.email = email
-        self.matricola = matricola
-        self.facolta = facolta
-
 
 class Profilo:
     def __init__(self, utente):

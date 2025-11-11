@@ -33,7 +33,7 @@ def login(utenti):
                 if isinstance(utente, Studente):
                     home_studente = HomeStudente(utente)  # Mostra la home dello studente
                 elif isinstance(utente, Amministratore):
-                    home_admin = HomeAmministratore(utente)  # Mostra la home dell'amministratore
+                    home_admin = HomeAmministratore(utente,utenti)  # Mostra la home dell'amministratore
                 return
 
         messagebox.showerror("Login", "Email o password errati!")
