@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 
+from profilo import Profilo
+
 
 class HomeStudente:
     def __init__(self, utente):
@@ -9,7 +11,6 @@ class HomeStudente:
         self.home_window.title(f"Home Studente: {self.utente.nome}")
         self.home_window.geometry("400x400")
 
-        # Etichetta di benvenuto
         label_benvenuto = tk.Label(self.home_window, text=f"Benvenuto, {self.utente.nome}!", font=("Arial", 16))
         label_benvenuto.pack(pady=20)
 
@@ -28,9 +29,9 @@ class HomeStudente:
         self.home_window.mainloop()
 
     def mostra_profilo(self):
-        # Mostra i dettagli del profilo dello studente
-        messagebox.showinfo("Profilo",
-                            f"Nome: {self.utente.nome}\nCognome: {self.utente.cognome}\nEmail: {self.utente.email}")
+        # Crea un'istanza di Profilo e chiama il metodo per visualizzare il profilo
+        profilo = Profilo(self.utente)
+        profilo.mostra_profilo()
 
     def visualizza_esami(self):
         # Aggiungi logica per visualizzare esami
