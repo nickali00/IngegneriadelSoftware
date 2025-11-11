@@ -5,7 +5,7 @@ class Amministratore(Persona):
     def __init__(self, nome, cognome, data_nascita, codice_fiscale, email, id_amministratore, password):
         super().__init__(nome, cognome, data_nascita, codice_fiscale, email)
         self.id_amministratore = id_amministratore
-        self.id_amministratore = password
+        self.password = password
 
     def __str__(self):
         return (f"Amministratore: {self.nome} {self.cognome}, ID: {self.id_amministratore}, "

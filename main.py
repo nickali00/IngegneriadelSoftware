@@ -43,7 +43,7 @@ def main():
     # Aggiungiamo gli utenti alla lista
     utenti.append(studente1)
     utenti.append(studente2)
- #   utenti.append(admin1)
+    utenti.append(admin1)
 
     # Mostriamo i dati di tutti gli utenti
     print("Elenco utenti:")

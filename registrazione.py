@@ -56,15 +56,16 @@ def registrazione(utenti):
             return
 
         for utente in utenti:
-            if utente.email == email:
-                messagebox.showerror("Errore", "Email già registrata!")
-                return
-            if utente.codice_fiscale == codice_fiscale:
-                messagebox.showerror("Errore", "Codice fiscale già registrato!")
-                return
-            if utente.matricola == matricola:
-                messagebox.showerror("Errore", "Matricola già registrata!")
-                return
+            if isinstance(utente, Studente):
+                if utente.email == email:
+                    messagebox.showerror("Errore", "Email già registrata!")
+                    return
+                if utente.codice_fiscale == codice_fiscale:
+                    messagebox.showerror("Errore", "Codice fiscale già registrato!")
+                    return
+                if utente.matricola == matricola:
+                    messagebox.showerror("Errore", "Matricola già registrata!")
+                    return
 
         nuovo_studente = Studente(nome, cognome, "", codice_fiscale, email, matricola, facolta, password)
         utenti.append(nuovo_studente)
@@ -75,8 +76,20 @@ def registrazione(utenti):
         from login import login
         login(utenti)
 
-    button_registra = tk.Button(reg_window, text="Registrati", command=registra_utente)
-    button_registra.pack(pady=20)
+
+    frame_bottoni = tk.Frame(reg_window)
+    frame_bottoni.pack(pady=20)
+
+    def annulla():
+        reg_window.destroy()
+        from login import login
+        login(utenti)
+
+    button_annulla = tk.Button(frame_bottoni, text="Annulla", command=annulla)
+    button_annulla.pack(side=tk.LEFT, padx=10)
+
+    button_registra = tk.Button(frame_bottoni, text="Registrati", command=registra_utente)
+    button_registra.pack(side=tk.LEFT, padx=10)
 
     reg_window.mainloop()
 

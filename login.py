@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox
 import registrazione
+from Amministratore import Amministratore
+from HomeAmministratore import HomeAmministratore
+from HomeStudente import HomeStudente
+from Studente import Studente
+
 
 def login(utenti):
     root = tk.Tk()
@@ -25,6 +30,10 @@ def login(utenti):
             if utente.email == email and utente.password == password:
                 messagebox.showinfo("Login", f"Benvenuto {utente.nome} {utente.cognome}!")
                 root.destroy()
+                if isinstance(utente, Studente):
+                    home_studente = HomeStudente(utente)  # Mostra la home dello studente
+                elif isinstance(utente, Amministratore):
+                    home_admin = HomeAmministratore(utente)  # Mostra la home dell'amministratore
                 return
 
         messagebox.showerror("Login", "Email o password errati!")
@@ -36,10 +45,12 @@ def login(utenti):
     frame_bottoni = tk.Frame(root)
     frame_bottoni.pack(pady=20)
 
+    button_registrazione = tk.Button(frame_bottoni, text="Registrati", command=apri_registrazione)
+    button_registrazione.pack(side=tk.LEFT, padx=10)
+
     button_login = tk.Button(frame_bottoni, text="Login", command=verifica_login)
     button_login.pack(side=tk.LEFT, padx=10)
 
-    button_registrazione = tk.Button(frame_bottoni, text="Registrati", command=apri_registrazione)
-    button_registrazione.pack(side=tk.LEFT, padx=10)
+
 
     root.mainloop()
