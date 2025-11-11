@@ -1,14 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
+import registrazione
 
-# Funzione di login
 def login(utenti):
-    # Creiamo la finestra di login
     root = tk.Tk()
     root.title("Login")
     root.geometry("300x230")
 
-    # Etichette e campi di input
     label_email = tk.Label(root, text="Email:")
     label_email.pack(pady=10)
     entry_email = tk.Entry(root)
@@ -19,7 +17,6 @@ def login(utenti):
     entry_password = tk.Entry(root, show="*")
     entry_password.pack(pady=5)
 
-    # Funzione di verifica login
     def verifica_login():
         email = entry_email.get()
         password = entry_password.get()
@@ -27,15 +24,22 @@ def login(utenti):
         for utente in utenti:
             if utente.email == email and utente.password == password:
                 messagebox.showinfo("Login", f"Benvenuto {utente.nome} {utente.cognome}!")
-                root.destroy()  # Chiudi la finestra di login
+                root.destroy()
                 return
 
         messagebox.showerror("Login", "Email o password errati!")
 
-    # Bottone di login
-    button_login = tk.Button(root, text="Login", command=verifica_login)
-    button_login.pack(pady=20)
+    def apri_registrazione():
+        root.withdraw()
+        registrazione.registrazione(utenti)
 
-    # Avvia l'interfaccia grafica
+    frame_bottoni = tk.Frame(root)
+    frame_bottoni.pack(pady=20)
+
+    button_login = tk.Button(frame_bottoni, text="Login", command=verifica_login)
+    button_login.pack(side=tk.LEFT, padx=10)
+
+    button_registrazione = tk.Button(frame_bottoni, text="Registrati", command=apri_registrazione)
+    button_registrazione.pack(side=tk.LEFT, padx=10)
+
     root.mainloop()
-
