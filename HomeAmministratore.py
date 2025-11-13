@@ -22,7 +22,15 @@ class HomeAmministratore:
         # Bottone per gestire gli utenti
         button_gestione_utenti = tk.Button(self.home_window, text="Gestisci Utenti", command=self.mostra_lista_utenti)
         button_gestione_utenti.pack(pady=10)
-
+        
+        # Bottone per aggiungerr nuova aulta studio
+        button_gestione_utenti = tk.Button(self.home_window, text="Aggiungi aula studio", command=self.mostra_lista_utenti)
+        button_gestione_utenti.pack(pady=10)
+        
+        # Bottone per aggiungerr nuova aulta studio
+        button_gestione_utenti = tk.Button(self.home_window, text="Aggiungi nuovo tavolo", command=self.mostra_lista_utenti)
+        button_gestione_utenti.pack(pady=10)
+        
         # Bottone per visualizzare report
         button_report = tk.Button(self.home_window, text="Visualizza Report", command=self.visualizza_report)
         button_report.pack(pady=10)

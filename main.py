@@ -60,7 +60,7 @@ def main():
     print("Elenco utenti:")
     for utente in utenti:
         print(utente)
-
+    
  #   login(utenti)
 
 if __name__ == "__main__":
