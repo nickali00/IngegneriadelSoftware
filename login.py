@@ -52,7 +52,7 @@ def login():
                 messagebox.showinfo("Login", f"Benvenuto {user['Nome']} {user['Cognome']}!")
                 root.destroy()
 
-                if user['Fkcorsodistudio'] != 'NULL':
+                if user['Fkcorsodistudio'] is not None:
                     studente = Studente(
                         nome=user['Nome'],
                         cognome=user['Cognome'],
