@@ -42,28 +42,35 @@ def login():
 
         try:
             query = """
-                SELECT * FROM studente, corsidistudio
-                WHERE email = %s AND password = %s AND studente.Fkcorsodistudio=corsidistudio.id;
+                SELECT * 
+                FROM studente 
+                LEFT JOIN corsidistudio 
+                ON studente.Fkcorsodistudio = corsidistudio.id
+                WHERE email = %s AND password = %s;
             """
             cursor.execute(query, (email, password))
             user = cursor.fetchone()
 
             if user:
-                messagebox.showinfo("Login", f"Benvenuto {user['Nome']} {user['Cognome']}!")
-                root.destroy()
+
 
                 if user['Fkcorsodistudio'] is not None:
-                    studente = Studente(
-                        nome=user['Nome'],
-                        cognome=user['Cognome'],
-                        data_nascita=user['Datanascita'],
-                        codice_fiscale=user['Codicefiscale'],
-                        email=user['Email'],
-                        matricola=user['Matricola'],
-                        facolta=user['corsodistudio'],
-                        password=user['Password']
-                    )
-                    HomeStudente(studente)
+                    if user['Matricola'] is not None:
+                        studente = Studente(
+                            nome=user['Nome'],
+                            cognome=user['Cognome'],
+                            data_nascita=user['Datanascita'],
+                            codice_fiscale=user['Codicefiscale'],
+                            email=user['Email'],
+                            matricola=user['Matricola'],
+                            facolta=user['corsodistudio'],
+                            password=user['Password']
+                        )
+                        messagebox.showinfo("Login", f"Benvenuto {user['Nome']} {user['Cognome']}!")
+                        root.destroy()
+                        HomeStudente(studente)
+                    else:
+                        messagebox.showerror("Errore", "utente non ancora approvato dall'amministratore")
                 else:
                     amministratore = Amministratore(
                         nome=user['Nome'],
