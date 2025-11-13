@@ -6,9 +6,9 @@ from profilo import Profilo  # Assicurati che questa classe sia definita corrett
 
 
 class HomeAmministratore:
-    def __init__(self, utente, utenti):
+    def __init__(self, utente):
         self.utente = utente
-        self.utenti = utenti  # Lista di utenti (studente, amministratore, ecc.)
+        #self.utenti = utenti  # Lista di utenti (studente, amministratore, ecc.)
 
         # Finestra principale
         self.home_window = tk.Tk()

@@ -1,13 +1,16 @@
+# login.py
 import tkinter as tk
 from tkinter import messagebox
-import registrazione
-from Amministratore import Amministratore
+from connessione import connect_to_db
 from HomeAmministratore import HomeAmministratore
+from Amministratore import Amministratore
 from HomeStudente import HomeStudente
 from Studente import Studente
+import registrazione
+from mysql.connector import Error
 
 
-def login(utenti):
+def login():
     root = tk.Tk()
     root.title("Login")
     root.geometry("300x230")
@@ -23,24 +26,68 @@ def login(utenti):
     entry_password.pack(pady=5)
 
     def verifica_login():
-        email = entry_email.get()
-        password = entry_password.get()
+        email = entry_email.get().strip()
+        password = entry_password.get().strip()
 
-        for utente in utenti:
-            if utente.email == email and utente.password == password:
-                messagebox.showinfo("Login", f"Benvenuto {utente.nome} {utente.cognome}!")
+        if not email or not password:
+            messagebox.showwarning("Attenzione", "Inserisci email e password!")
+            return
+
+        conn = connect_to_db()
+        if conn is None:
+            messagebox.showerror("Errore", "Connessione al database fallita.")
+            return
+
+        cursor = conn.cursor(dictionary=True)
+
+        try:
+            query = """
+                SELECT * FROM studente, corsidistudio
+                WHERE email = %s AND password = %s AND studente.Fkcorsodistudio=corsidistudio.id;
+            """
+            cursor.execute(query, (email, password))
+            user = cursor.fetchone()
+
+            if user:
+                messagebox.showinfo("Login", f"Benvenuto {user['Nome']} {user['Cognome']}!")
                 root.destroy()
-                if isinstance(utente, Studente):
-                    home_studente = HomeStudente(utente)  # Mostra la home dello studente
-                elif isinstance(utente, Amministratore):
-                    home_admin = HomeAmministratore(utente,utenti)  # Mostra la home dell'amministratore
-                return
 
-        messagebox.showerror("Login", "Email o password errati!")
+                if user['Fkcorsodistudio'] != 'NULL':
+                    studente = Studente(
+                        nome=user['Nome'],
+                        cognome=user['Cognome'],
+                        data_nascita=user['Datanascita'],
+                        codice_fiscale=user['Codicefiscale'],
+                        email=user['Email'],
+                        matricola=user['Matricola'],
+                        facolta=user['corsodistudio'],
+                        password=user['Password']
+                    )
+                    HomeStudente(studente)
+                else:
+                    amministratore = Amministratore(
+                        nome=user['Nome'],
+                        cognome=user['Cognome'],
+                        data_nascita=user['Datanascita'],
+                        codice_fiscale=user['Codicefiscale'],
+                        email=user['Email'],
+                        id_amministratore=user['Matricola'],
+                        password=user['Password']
+                    )
+                    HomeAmministratore(amministratore)
+
+            else:
+                messagebox.showerror("Errore", "Email o password errati.")
+
+        except Error as e:
+            messagebox.showerror("Errore Database", f"Errore: {e}")
+        finally:
+            cursor.close()
+            conn.close()
 
     def apri_registrazione():
         root.withdraw()
-        registrazione.registrazione(utenti)
+        registrazione.registrazione([])
 
     frame_bottoni = tk.Frame(root)
     frame_bottoni.pack(pady=20)
@@ -50,7 +97,5 @@ def login(utenti):
 
     button_login = tk.Button(frame_bottoni, text="Login", command=verifica_login)
     button_login.pack(side=tk.LEFT, padx=10)
-
-
 
     root.mainloop()

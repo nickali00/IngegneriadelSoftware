@@ -3,7 +3,7 @@ from Amministratore import Amministratore
 from Studente import Studente
 from Aula_studio import Aulastudio 
 from tavolo import Tavolo
-#from login import login
+from login import login
 
 
 def main():
@@ -61,7 +61,7 @@ def main():
     for utente in utenti:
         print(utente)
     
- #   login(utenti)
+    login()
 
 if __name__ == "__main__":
     main()
