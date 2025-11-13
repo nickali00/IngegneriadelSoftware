@@ -81,6 +81,7 @@ def login():
                         id_amministratore=user['Matricola'],
                         password=user['Password']
                     )
+                    root.destroy()
                     HomeAmministratore(amministratore)
 
             else:

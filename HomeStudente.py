@@ -5,7 +5,7 @@ from profilo import Profilo
 class HomeStudente:
     def __init__(self, utente):
         self.utente = utente
-
+        self.is_admin=False
         # Crea la finestra principale
         self.home_window = tk.Tk()
         self.home_window.title(f"Home Studente: {self.utente.nome}")
@@ -31,8 +31,7 @@ class HomeStudente:
 
     def mostra_profilo(self):
         # Crea un'istanza di Profilo e chiama il metodo per visualizzare il profilo
-        profilo = Profilo(self.utente)
-        profilo.mostra_profilo()
+        Profilo(self.utente, False)
 
     def visualizza_report(self):
         # Aggiungi logica per visualizzare un report

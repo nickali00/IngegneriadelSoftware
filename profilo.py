@@ -1,12 +1,17 @@
+import random
 import tkinter as tk
 from tkinter import messagebox
 
+from mysql.connector import Error
+
+from connessione import connect_to_db
 
 
 class Profilo:
-    def __init__(self, utente):
+    def __init__(self, utente, is_admin=False):
         self.utente = utente
-        self.profilo_window = tk.Tk()
+        self.is_admin = is_admin
+        self.profilo_window = tk.Toplevel()
         self.profilo_window.title(f"Profilo di {self.utente.nome}")
         self.profilo_window.geometry("1200x300")
         self.profilo_window.config(bg="#f2f2f2")
@@ -94,4 +99,44 @@ class Profilo:
         button_chiudi = tk.Button(self.profilo_window, text="Chiudi", command=self.profilo_window.destroy)
         button_chiudi.grid(row=5, column=0, columnspan=6, pady=20)
 
+        # --- Se è admin aggiungi il pulsante Approva ---
+        if self.is_admin:
+            button_approva = tk.Button(self.profilo_window, text="Approva", command=self.approva_utente)
+            button_approva.grid(row=6, column=0, columnspan=6, pady=10)
+
         self.profilo_window.mainloop()
+
+    def approva_utente(self):
+        conn = connect_to_db()
+        if not conn:
+            messagebox.showerror("Errore", "Connessione al database fallita!")
+            return
+
+        try:
+            cursor = conn.cursor()
+
+            # Prendi tutte le matricole già esistenti
+            cursor.execute("SELECT Matricola FROM studente WHERE Matricola IS NOT NULL")
+            matricole_esistenti = {row[0] for row in cursor.fetchall()}
+
+            # Genera un numero casuale unico per la matricola
+            while True:
+                nuova_matricola = random.randint(100000, 999999)  # esempio: 6 cifre
+                if nuova_matricola not in matricole_esistenti:
+                    break
+
+            # Aggiorna l'utente nel database
+            query_update = "UPDATE studente SET Matricola = %s WHERE CodiceFiscale = %s"
+            cursor.execute(query_update, (nuova_matricola, self.utente.codice_fiscale))
+            conn.commit()
+
+            messagebox.showinfo("Approva",
+                                f"L'utente {self.utente.nome} {self.utente.cognome} è stato approvato!\nMatricola assegnata: {nuova_matricola}")
+            self.profilo_window.destroy()
+
+        except Error as e:
+            messagebox.showerror("Errore DB", f"Si è verificato un errore: {e}")
+        finally:
+            cursor.close()
+            conn.close()
+        self.profilo_window.destroy()
