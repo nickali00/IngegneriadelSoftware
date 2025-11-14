@@ -5,7 +5,7 @@ from connessione import connect_to_db
 
 def nuovotavolo():
     reg_window = tk.Tk()
-    reg_window.title("Registrazione")
+    reg_window.title("Nuovo Tavolo")
     reg_window.geometry("300x250")
 
     label_posti = tk.Label(reg_window, text="Numero posti:")

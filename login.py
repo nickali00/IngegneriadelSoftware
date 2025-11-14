@@ -95,7 +95,7 @@ def login():
 
     def apri_registrazione():
         root.withdraw()
-        registrazione.registrazione([])
+        registrazione.registrazione()
 
     frame_bottoni = tk.Frame(root)
     frame_bottoni.pack(pady=20)

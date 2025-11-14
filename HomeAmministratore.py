@@ -29,12 +29,12 @@ class HomeAmministratore:
         button_gestione_utenti.pack(pady=10)
         
         # Bottone per aggiungerr nuova aulta studio
-        button_gestione_utenti = tk.Button(self.home_window, text="Aggiungi aula studio", command=self.nuova_aula_studiio)
-        button_gestione_utenti.pack(pady=10)
+        button_gestione_aule = tk.Button(self.home_window, text="Aggiungi aula studio", command=self.nuova_aula_studiio)
+        button_gestione_aule.pack(pady=10)
         
         # Bottone per aggiungerr nuova aulta studio
-        button_gestione_utenti = tk.Button(self.home_window, text="Aggiungi nuovo tavolo", command=self.nuovo_tavolo)
-        button_gestione_utenti.pack(pady=10)
+        button_gestione_tavoli = tk.Button(self.home_window, text="Aggiungi nuovo tavolo", command=self.nuovo_tavolo)
+        button_gestione_tavoli.pack(pady=10)
         
         # Bottone per visualizzare report
         button_report = tk.Button(self.home_window, text="Visualizza Report", command=self.visualizza_report)

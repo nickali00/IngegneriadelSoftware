@@ -23,7 +23,7 @@ def email_o_codice_esiste(email, codice_fiscale):
         cursor.close()
         conn.close()
 
-def registrazione(utenti):
+def registrazione():
     reg_window = tk.Tk()
     reg_window.title("Registrazione")
     reg_window.geometry("300x550")
