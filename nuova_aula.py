@@ -6,7 +6,7 @@ from connessione import connect_to_db
 def nuovaaula():
     reg_window = tk.Tk()
     reg_window.title("Registrazione")
-    reg_window.geometry("300x550")
+    reg_window.geometry("300x250")
 
     label_nome = tk.Label(reg_window, text="Nome:")
     label_nome.pack(pady=5)
@@ -44,7 +44,7 @@ def nuovaaula():
         # aggiorna corso_var con il valore selezionato
         edificio_var.set(combo_edifici.get())
 
-    combo_corsi.bind("<<ComboboxSelected>>", on_corso_selected)
+    combo_edifici.bind("<<ComboboxSelected>>", on_corso_selected)
 
     def aggiungiaula():
         nome = entry_nome.get()

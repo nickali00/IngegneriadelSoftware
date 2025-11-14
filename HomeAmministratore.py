@@ -3,6 +3,8 @@ from tkinter import messagebox
 
 from mysql.connector import Error
 
+from nuova_aula import nuovaaula
+from nuovo_tavolo import nuovotavolo
 from Studente import Studente
 from connessione import connect_to_db
 from profilo import Profilo  # Assicurati che questa classe sia definita correttamente per visualizzare il profilo
@@ -110,11 +112,11 @@ class HomeAmministratore:
 
     def nuova_aula_studiio(self):
         # Aggiungi logica per visualizzare il report
-        messagebox.showinfo("Report", "nuovo aula studio.")
+        nuovaaula()
 
     def nuovo_tavolo(self):
         # Aggiungi logica per visualizzare il report
-        messagebox.showinfo("Report", "nuovo tavolo.")
+        nuovotavolo()
     def logout(self):
         self.home_window.destroy()
         print("Logout effettuato.")

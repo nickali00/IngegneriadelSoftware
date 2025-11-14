@@ -6,7 +6,7 @@ from connessione import connect_to_db
 def nuovotavolo():
     reg_window = tk.Tk()
     reg_window.title("Registrazione")
-    reg_window.geometry("300x550")
+    reg_window.geometry("300x250")
 
     label_posti = tk.Label(reg_window, text="Numero posti:")
     label_posti.pack(pady=5)
@@ -33,7 +33,7 @@ def nuovotavolo():
     combo_aule = ttk.Combobox(
         reg_window,
         textvariable=aula_var,
-        values=list(corsi.keys()),
+        values=list(aule.keys()),
         state="readonly"  # obbligatorio per evitare input manuale
     )
     combo_aule.pack(pady=5)
@@ -54,6 +54,16 @@ def nuovotavolo():
         if not numero:
             messagebox.showerror("Errore", "Inserisci il numero!")
             return
+
+        try:
+            numero = int(numero)  # Prova a convertirlo in un intero
+            if numero <= 0:
+                raise ValueError("Il numero deve essere maggiore di zero.")
+        except ValueError:
+            messagebox.showerror("Errore", "Inserisci un numero intero valido!")
+            return
+
+
         if not au:
             messagebox.showerror("Errore", "Seleziona un aula!")
             return
