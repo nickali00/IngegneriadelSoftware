@@ -15,6 +15,7 @@ def main():
     aule = [aula1, aula2]
     # Creazione di 2 tavoli per ciascuna aula
     tavolo1_aula1 = Tavolo(1, 10)
+    
     tavolo2_aula1 = Tavolo(2, 10)
     # Mostriamo i dati di tutti gli utenti
     

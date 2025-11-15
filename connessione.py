@@ -5,7 +5,8 @@ from mysql.connector import Error
 def connect_to_db():
     try:
         conn = mysql.connector.connect(
-            host='localhost',
+            #host='localhost',
+            host='192.168.1.112',
             port=3306,
             user='user',
             password='userpassword',
